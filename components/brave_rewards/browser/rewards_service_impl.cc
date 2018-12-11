@@ -1796,6 +1796,14 @@ void RewardsServiceImpl::SetBackupCompleted() {
   profile_->GetPrefs()->SetBoolean(kRewardsBackupSucceeded, true);
 }
 
+const std::string& RewardsServiceImpl::GetPaymentId() const {
+  return ledger_->GetPaymentId();
+}
+
+std::string RewardsServiceImpl::GetKeyInfoSeed() const {
+  return ledger_->GetKeyInfoSeed();
+}
+
 void RewardsServiceImpl::OnDonate(
     const std::string& publisher_key,
     int amount,
