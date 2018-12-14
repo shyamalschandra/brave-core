@@ -80,7 +80,9 @@ void BraveAddCommonStrings(content::WebUIDataSource* html_source,
     {"braveSync",
       IDS_SETTINGS_BRAVE_SYNC_TITLE},
     {"braveSyncLabel",
-      IDS_SETTINGS_BRAVE_SYNC_LINK_LABEL}
+      IDS_SETTINGS_BRAVE_SYNC_LINK_LABEL},
+    {"onExitPageTitle",
+      IDS_SETTINGS_BRAVE_ON_EXIT}
   };
   AddLocalizedStringsBulk(html_source, localized_strings,
                           arraysize(localized_strings));
