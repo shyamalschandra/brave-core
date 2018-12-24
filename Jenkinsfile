@@ -17,11 +17,10 @@ pipeline {
                 sh """
                     if [ ! -d brave-browser ]; then
                         git clone https://github.com/brave/brave-browser.git
-                    else
-                        git -C brave-browser checkout -f -b brave-core-${GIT_BRANCH} || git -C brave-browser checkout -f brave-core-${GIT_BRANCH}
-                        git -C brave-browser fetch origin brave-core-${GIT_BRANCH} || exit 0
-                        git -C brave-browser reset --hard origin/brave-core-${GIT_BRANCH} || exit 0
                     fi
+                    git -C brave-browser checkout -f -b brave-core-${GIT_BRANCH} || git -C brave-browser checkout -f brave-core-${GIT_BRANCH}
+                    git -C brave-browser fetch origin brave-core-${GIT_BRANCH} || exit 0
+                    git -C brave-browser reset --hard origin/brave-core-${GIT_BRANCH} || exit 0
                 """
             }
         }
