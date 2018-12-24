@@ -18,9 +18,9 @@ pipeline {
                     if [ ! -d brave-browser ]; then
                         git clone https://github.com/brave/brave-browser.git
                     else
-                        git -C brave-browser checkout -f -b ${GIT_BRANCH} || git -C brave-browser checkout -f ${GIT_BRANCH}
-                        git -C brave-browser fetch origin ${GIT_BRANCH}
-                        git -C brave-browser reset --hard origin/${GIT_BRANCH}
+                        git -C brave-browser checkout -f -b brave-core-${GIT_BRANCH} || git -C brave-browser checkout -f brave-core-${GIT_BRANCH}
+                        git -C brave-browser fetch origin brave-core-${GIT_BRANCH}
+                        git -C brave-browser reset --hard origin/brave-core-${GIT_BRANCH}
                     fi
                 """
             }
@@ -53,12 +53,7 @@ pipeline {
             steps {
                 script {
                     def r = build(job: "brave-browser-build-pr-mac/${GIT_BRANCH}", propagate: false, quietPeriod: 30).result
-                    if(r == 'ABORTED') {
-                        currentBuild.result = 'FAILURE'
-                    }
-                    else {
-                        currentBuild.result = r
-                    }
+                    if(r == 'ABORTED') { currentBuild.result = 'FAILURE' } else { currentBuild.result = r }
                 }
             }
         }
