@@ -18,7 +18,8 @@ pipeline {
                 echo "${CHANGE_TARGET}"
                 echo "${CHANGE_TITLE}"
                 echo "${CHANGE_ID}"
-                echo "${CHANGE_AUTHOR_EMAIL}"
+                echo "${CHANGE_AUTHOR}"
+                echo "${CHANGE_AUTHOR_DISPLAY_NAME}"
                 sh """
                     rm -rf brave-browser/
                     // remove remote brnach?
