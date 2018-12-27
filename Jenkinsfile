@@ -14,13 +14,14 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-                echo ${BRANCH_NAME}
-                echo ${CHANGE_TARGET}
-                echo ${CHANGE_TITLE}
-                echo ${CHANGE_ID}
-                echo ${CHANGE_AUTHOR_EMAIL}
+                echo "${BRANCH_NAME}"
+                echo "${CHANGE_TARGET}"
+                echo "${CHANGE_TITLE}"
+                echo "${CHANGE_ID}"
+                echo "${CHANGE_AUTHOR_EMAIL}"
                 sh """
                     rm -rf brave-browser/
+                    // remove remote brnach?
                     if [ ! -d brave-browser ]; then
                         git clone -b ${CHANGE_TARGET} https://github.com/brave/brave-browser.git
                     fi
@@ -56,6 +57,7 @@ pipeline {
         }
         stage('build-mac') {
             steps {
+                // wait 5m for branch to be discovered?
                 script {
                     def macResult = build(job: "brave-browser-build-pr-mac/brave-core-${GIT_BRANCH}", propagate: false, quietPeriod: 30).result
                     echo "Building browser for mac result is ${macResult}"
