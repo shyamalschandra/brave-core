@@ -20,9 +20,9 @@ pipeline {
                 echo "${CHANGE_ID}"
                 echo "${CHANGE_AUTHOR}"
                 echo "${CHANGE_AUTHOR_DISPLAY_NAME}"
+                // remove remote branch?
                 sh """
                     rm -rf brave-browser/
-                    // remove remote brnach?
                     if [ ! -d brave-browser ]; then
                         git clone -b ${CHANGE_TARGET} https://github.com/brave/brave-browser.git
                     fi
