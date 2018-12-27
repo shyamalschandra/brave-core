@@ -14,9 +14,15 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
+                echo ${BRANCH_NAME}
+                echo ${CHANGE_TARGET}
+                echo ${CHANGE_TITLE}
+                echo ${CHANGE_ID}
+                echo ${CHANGE_AUTHOR_EMAIL}
                 sh """
+                    rm -rf brave-browser/
                     if [ ! -d brave-browser ]; then
-                        git clone https://github.com/brave/brave-browser.git
+                        git clone -b ${CHANGE_TARGET} https://github.com/brave/brave-browser.git
                     fi
                     git -C brave-browser checkout -f -b brave-core-${GIT_BRANCH} || git -C brave-browser checkout -f brave-core-${GIT_BRANCH}
                     git -C brave-browser fetch origin brave-core-${GIT_BRANCH} || exit 0
