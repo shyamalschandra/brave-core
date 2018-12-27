@@ -48,11 +48,12 @@ pipeline {
                 }
             }
         }
-        stage('build') {
+        stage('build-mac') {
             steps {
                 script {
-                    def r = build(job: "brave-browser-build-pr-mac/brave-core-${GIT_BRANCH}", propagate: false, quietPeriod: 30).result
-                    if(r == 'ABORTED') { currentBuild.result = 'FAILURE' } else { currentBuild.result = r }
+                    def macResult = build(job: "brave-browser-build-pr-mac/brave-core-${GIT_BRANCH}", propagate: false, quietPeriod: 30).result
+                    echo "Building browser for mac result is ${macResult}"
+                    if(macResult == 'ABORTED') { currentBuild.result = 'FAILURE' } else { currentBuild.result = macResult }
                 }
             }
         }
