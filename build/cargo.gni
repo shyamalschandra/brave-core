@@ -1,0 +1,17 @@
+# Runs a script to compile a local Cargo package and all of its dependencies
+template("cargo_build") {
+  action(target_name) {
+    script = "//brave/script/cargo.py"
+
+    # make sure rebuilds when files change
+    public_configs = invoker.public_configs
+    inputs = invoker.inputs
+    outputs = [invoker.output]
+
+    args = [
+      "--manifest_path=" + rebase_path(invoker.manifest_path, root_build_dir),
+      "--build_path=" + rebase_path(invoker.build_path, root_build_dir),
+      "--is_debug=$is_debug"
+    ]
+  }
+}
