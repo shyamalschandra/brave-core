@@ -3,7 +3,7 @@
 set -euo pipefail
 
 if [[ $# -lt "4" ]]; then
-  echo "usage: $0 <source_app> <dest_app> <packaging_dir> <mac_signing_keychain> <mac_signing_identifier> <mac_provisioning_profile>"
+  echo "usage: $0 <source_app> <dest_app> <packaging_dir> <mac_signing_keychain> <mac_signing_identifier> <mac_provisioning_profile> <extra_flags>"
   exit 1
 fi
 
@@ -13,6 +13,7 @@ PKG_DIR="${3}"
 MAC_SIGNING_KEYCHAIN="${4}"
 MAC_SIGNING_IDENTIFIER="${5}"
 MAC_PROVISIONING_PROFILE="${6}"
+EXTRA_FLAGS="${7}"
 
 app_name="$(basename $SOURCE)"
 
@@ -38,6 +39,6 @@ mkdir -p "$tmpdir"
 
 cp -a "$SOURCE" "$DEST"
 
-"${PKG_DIR}/sign_versioned_dir.sh" "$DEST" "$MAC_SIGNING_KEYCHAIN" "$MAC_SIGNING_IDENTIFIER"
+"${PKG_DIR}/sign_versioned_dir.sh" "$DEST" "$MAC_SIGNING_KEYCHAIN" "$MAC_SIGNING_IDENTIFIER" "$EXTRA_FLAGS"
 
-"${PKG_DIR}/sign_app.sh" "$DEST" "$MAC_SIGNING_KEYCHAIN" "$MAC_SIGNING_IDENTIFIER" "$MAC_PROVISIONING_PROFILE" "${PKG_DIR}/entitlements.plist"
+"${PKG_DIR}/sign_app.sh" "$DEST" "$MAC_SIGNING_KEYCHAIN" "$MAC_SIGNING_IDENTIFIER" "$MAC_PROVISIONING_PROFILE" "${PKG_DIR}/entitlements.plist" "$EXTRA_FLAGS"
